@@ -21,6 +21,12 @@ builder.Services.AddTransient<IService, Service>();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<Context>();
+    db.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -50,3 +56,5 @@ app.MapPost("allocate", async (AllocateDto dto, IService service) =>
 });
 
 app.Run();
+
+public partial class Program { }
