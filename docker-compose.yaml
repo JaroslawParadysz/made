@@ -1,0 +1,19 @@
+version: '3.4'
+
+networks:
+  dev:
+    driver: bridge
+
+services:
+  db:
+    image: postgres:latest
+    container_name: made_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=made
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - dev
