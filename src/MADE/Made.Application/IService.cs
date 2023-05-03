@@ -5,4 +5,5 @@ namespace Made.Application;
 public interface IService
 {
     Task<Guid> AllocateAsync(AllocateDto allocateDto);
+    Task<Guid> AddBatchAsync(BatchDto dto);
 }

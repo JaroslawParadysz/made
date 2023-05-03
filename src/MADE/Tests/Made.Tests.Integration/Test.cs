@@ -25,11 +25,21 @@ public class BatchAllocationTest : IClassFixture<CustomWebApplicationFactory<Pro
     [Fact]
     public async Task HappyPath()
     {
-        var dto = new AllocateDto
+        var batch = new BatchDto()
         {
             SKU = "ExistingSKU",
+            Quantity = 120
+        };
+        
+        var dto = new AllocateDto
+        {
+            SKU = batch.SKU,
             Quantity = 100
         };
+
+        var addBatchPayload = JsonContent.Create(batch);
+        await _httpClient.PostAsync("batches", addBatchPayload);
+        
 
         var requestPayload = JsonContent.Create(dto);
         

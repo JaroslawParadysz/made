@@ -55,6 +55,21 @@ app.MapPost("allocate", async (AllocateDto dto, IService service) =>
     return Results.Created($"/order-lines/{allocatedOrderLineId}", null);
 });
 
+app.MapPost("batches", async (BatchDto dto, IService service) =>
+{
+    Guid createdBatchId;
+    try
+    {
+        createdBatchId = await service.AddBatchAsync(dto);
+    }
+    catch (Exception e)
+    {
+        return Results.BadRequest(e.Message);
+    }
+
+    return Results.Created($"/batches/{createdBatchId}", null);
+});
+
 app.Run();
 
 public partial class Program { }

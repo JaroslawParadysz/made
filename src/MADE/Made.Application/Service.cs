@@ -35,4 +35,20 @@ public class Service : IService
 
         return orderLine.Id;
     }
+
+    public async Task<Guid> AddBatchAsync(BatchDto dto)
+    {
+        var existingBatch = await _context.Batches.SingleOrDefaultAsync(b => b.SKU == dto.SKU);
+        if (existingBatch is not null)
+        {
+            throw new Exception("Batch with the same SKU already exists");
+        }
+
+        var batch = new Batch(Guid.NewGuid(), dto.SKU, dto.Quantity);
+        await _context.Batches.AddAsync(batch);
+        
+        await _context.SaveChangesAsync();
+
+        return batch.Reference;
+    }
 }
