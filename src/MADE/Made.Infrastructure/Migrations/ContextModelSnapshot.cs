@@ -52,7 +52,7 @@ namespace Made.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Order", "made");
+                    b.ToTable("Orders", "made");
                 });
 
             modelBuilder.Entity("Made.Domain.OrderLine", b =>
@@ -80,7 +80,7 @@ namespace Made.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderLine", "made");
+                    b.ToTable("OrderLines", "made");
                 });
 
             modelBuilder.Entity("Made.Domain.OrderLine", b =>
