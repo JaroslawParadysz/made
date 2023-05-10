@@ -19,4 +19,7 @@ public class Context : DbContext
     }
     
     public DbSet<Batch> Batches { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    
+    public DbSet<OrderLine> OrderLines { get; set; }
 }

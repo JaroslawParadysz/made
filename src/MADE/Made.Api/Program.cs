@@ -1,6 +1,7 @@
 using Made.Application;
 using Made.Application.Dto;
 using Made.Domain;
+using Made.Infrastructure;
 using Made.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<Context>(
     opt => opt.UseNpgsql(configuration.GetConnectionString("MadeDatabase")));
 
 builder.Services.AddTransient<IService, Service>();
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
@@ -68,6 +71,21 @@ app.MapPost("batches", async (BatchDto dto, IService service) =>
     }
 
     return Results.Created($"/batches/{createdBatchId}", null);
+});
+
+app.MapPost("orders", async (OrderDto dto, IService service) =>
+{
+    Guid createdBatchId;
+    try
+    {
+        createdBatchId = await service.AddOrderAsync(dto);
+    }
+    catch (Exception e)
+    {
+        return Results.BadRequest(e.Message);
+    }
+
+    return Results.Created($"/orders/{createdBatchId}", null);
 });
 
 app.Run();

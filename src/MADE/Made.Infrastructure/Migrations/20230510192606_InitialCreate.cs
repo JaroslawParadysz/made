@@ -30,7 +30,7 @@ namespace Made.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Orders",
                 schema: "made",
                 columns: table => new
                 {
@@ -38,11 +38,11 @@ namespace Made.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderLine",
+                name: "OrderLines",
                 schema: "made",
                 columns: table => new
                 {
@@ -54,32 +54,32 @@ namespace Made.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderLine", x => x.Id);
+                    table.PrimaryKey("PK_OrderLines", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderLine_Batches_BatchReference",
+                        name: "FK_OrderLines_Batches_BatchReference",
                         column: x => x.BatchReference,
                         principalSchema: "made",
                         principalTable: "Batches",
                         principalColumn: "Reference");
                     table.ForeignKey(
-                        name: "FK_OrderLine_Order_OrderId",
+                        name: "FK_OrderLines_Orders_OrderId",
                         column: x => x.OrderId,
                         principalSchema: "made",
-                        principalTable: "Order",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderLine_BatchReference",
+                name: "IX_OrderLines_BatchReference",
                 schema: "made",
-                table: "OrderLine",
+                table: "OrderLines",
                 column: "BatchReference");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderLine_OrderId",
+                name: "IX_OrderLines_OrderId",
                 schema: "made",
-                table: "OrderLine",
+                table: "OrderLines",
                 column: "OrderId");
         }
 
@@ -87,7 +87,7 @@ namespace Made.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderLine",
+                name: "OrderLines",
                 schema: "made");
 
             migrationBuilder.DropTable(
@@ -95,7 +95,7 @@ namespace Made.Infrastructure.Migrations
                 schema: "made");
 
             migrationBuilder.DropTable(
-                name: "Order",
+                name: "Orders",
                 schema: "made");
         }
     }

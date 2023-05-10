@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Made.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230429083921_InitialCreate")]
+    [Migration("20230510192606_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -55,7 +55,7 @@ namespace Made.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Order", "made");
+                    b.ToTable("Orders", "made");
                 });
 
             modelBuilder.Entity("Made.Domain.OrderLine", b =>
@@ -83,7 +83,7 @@ namespace Made.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderLine", "made");
+                    b.ToTable("OrderLines", "made");
                 });
 
             modelBuilder.Entity("Made.Domain.OrderLine", b =>
